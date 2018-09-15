@@ -1105,35 +1105,66 @@ const w = 800;
 const h = 500;
 const padding = 60;
 
-const xScale = d3.scaleLinear()
-  .domain([0, d3.max(dataset, (d) => new Date(d[0])) ])
-  .range([padding, w - padding]);
+d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json', function(err, data) {
+//console.log(data.data[2])
 
-const yScale = d3.scaleLinear()
-  .domain([0, d3.max(dataset, (d) => d[1] ) ])
-  .range([h - padding, padding]);
+  var years = data.data.map((item) => {
+    var quarter;
+    var testQuarter = item[0].substring(5, 7)
+    //console.log(testQuarter)
+    switch(testQuarter){
+      case ('01'): {
+          quarter = "Q1";
+          break;
+         }
+      case ('04'): {
+          quarter = "Q2";
+          break;
+         }
+      case ('07'): {
+          quarter = "Q3";
+          break;
+         }
+      case ('10'): {
+          quarter = "Q4";
+          break;
+         }
+        return quarter;
+    }
+  });
 
-const xAxis = d3.axisBottom(xScale);
-const yAxis = d3.axisLeft(yScale);
+  const xScale = d3.scaleLinear()
+    .domain([0, d3.max(dataset, (d) => new Date(d[0])) ])
+    .range([padding, w - padding]);
 
-const svg = d3.select("body")
-  .append("svg")
-  .attr("width", w)
-  .attr("height", h);
+  const yScale = d3.scaleLinear()
+    .domain([0, d3.max(dataset, (d) => d[1] ) ])
+    .range([h - padding, padding]);
 
-svg.append("g")
-  .attr("transform", "translate(0," + (h - padding) + ")")
-  .attr("class", "x-axis")
-  .call(xAxis);
+  const xAxis = d3.axisBottom(xScale);
+  const yAxis = d3.axisLeft(yScale);
 
-svg.append("g")
-  .attr("transform", "translate(" + padding + ", 0)")
-  .attr("class", "y-axis")
-  .call(yAxis);
 
-svg.append("text")
-  .attr("x",  w / 2 )
-  .attr("y", padding / 2)
-  .attr("text-anchor", "middle")
-  .attr("id", "title")
-  .text("graph");
+  const svg = d3.select("body")
+    .append("svg")
+    .attr("width", w)
+    .attr("height", h);
+
+  svg.append("g")
+    .attr("transform", "translate(0," + (h - padding) + ")")
+    .attr("class", "x-axis")
+    .call(xAxis);
+
+  svg.append("g")
+    .attr("transform", "translate(" + padding + ", 0)")
+    .attr("class", "y-axis")
+    .call(yAxis);
+
+  svg.append("text")
+    .attr("x",  w / 2 )
+    .attr("y", padding / 2)
+    .attr("text-anchor", "middle")
+    .attr("id", "title")
+    .text("graph");
+
+});
