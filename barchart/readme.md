@@ -1,3 +1,7 @@
+# D3 Barchart project
+**Note**: Simple repo using ES6, currently not supported in older browsers.
+
+## Requirements
 - User Story #1: My chart should have a title with a corresponding id="title".
 - User Story #2: My chart should have a g element x-axis with a corresponding id="x-axis".
 - User Story #3: My chart should have a g element y-axis with a corresponding id="y-axis".

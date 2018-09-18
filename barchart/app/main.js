@@ -1,14 +1,15 @@
 const w = 800;
 const h = 500;
 const padding = 60;
+console.log("app.js loaded");
 
 d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json', function(err, data) {
-//console.log(data.data[2])
+console.log(data.data[2])
 
   var years = data.data.map((item) => {
     var quarter;
     var testQuarter = item[0].substring(5, 7)
-    //console.log(testQuarter)
+    // console.log(testQuarter)
     switch(testQuarter){
       case ('01'): {
           quarter = "Q1";
@@ -26,11 +27,13 @@ d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/mas
           quarter = "Q4";
           break;
          }
-        return item[0].substring(0, 4) + ' ' + quarter
     }
+    //console.log(item[0].substring(0, 4) + ' ' + quarter)
+    return item[0].substring(0, 4) + ' ' + quarter
   });
 
   var yearsDigits = years.map(function(item) {
+    console.log(item);
     return item.substring(0, 4);
   });
 
